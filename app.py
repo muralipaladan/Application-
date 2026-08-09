@@ -10,7 +10,11 @@ st.write("മംഗ്ലീഷിൽ നൽകുന്ന വിവരങ്�
 try:
     API_KEY = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=API_KEY)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    
+    # ഇവിടെയാണ് Gemini 3.1 വേർഷൻ നൽകിയിരിക്കുന്നത്. 
+    # നിങ്ങളുടെ API-യ്ക്ക് അനുസരിച്ച് 'gemini-3.1-flash' അല്ലെങ്കിൽ 'gemini-3.1-pro' ഉപയോഗിക്കാം.
+    model = genai.GenerativeModel('gemini-3.1-flash') 
+    
 except Exception as e:
     st.error("API Key സെറ്റ് ചെയ്തിട്ടില്ല. ദയവായി Streamlit Secrets-ൽ കീ നൽകുക.")
 
@@ -45,6 +49,6 @@ if st.button("അപേക്ഷ തയ്യാറാക്കുക (Generate 
                 st.markdown("---")
                 st.write(response.text)
             except Exception as e:
-                st.error("എന്തോ തകരാർ സംഭവിച്ചു. വീണ്ടും ശ്രമിക്കുക.")
+                st.error(f"എന്തോ തകരാർ സംഭവിച്ചു: {e}")
     else:
         st.warning("ദയവായി എല്ലാ കോളങ്ങളും പൂരിപ്പിക്കുക!")
